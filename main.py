@@ -1,19 +1,11 @@
 import streamlit as st
 import pandas as pd
 
+from missing_values import cca_func, mean_func, median_func
 #Rappel: Pour lancer l'app "streamlit run main.py" à partir du répertoire courant
 
-def acc_func():
-    data_cca = data.dropna()
-    st.write(data_cca)
-    st.write(data_cca.isnull().mean().sort_values(ascending = True))
-    return data_cca
+#cca function
 
-def mean_func():
-    st.write("Mean")
-
-def median_func():
-    st.write("Median")
 
 st.title('AutoML')
 uploaded_file = st.file_uploader("Selectionner un dataset",type=['csv','xlsx'],accept_multiple_files=False)
@@ -26,13 +18,13 @@ if uploaded_file is not None:
     select = st.radio("Selectionner une méthode : ", ("Analyse complète des cas", "Mean imputation", "Median imputation"))
 
     if select == "Analyse complète des cas":
-        data = acc_func()
+        data = cca_func(data)
 
     if select == "Mean imputation":
-        mean_func()
+        mean_func(data)
 
     if select == "Median imputation":
-        median_func()
+        median_func(data)
 
 
 
